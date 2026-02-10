@@ -1,0 +1,160 @@
+{% extends "admin/base.html" %}
+
+{% block extra_css %}
+<!-- bootstrap-daterangepicker -->
+<link href="{{ url_for('static', filename='assets/vendors/bootstrap-daterangepicker/daterangepicker.css') }}"
+    rel="stylesheet">
+<!-- bootstrap-datetimepicker -->
+<link
+    href="{{ url_for('static', filename='assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}"
+    rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Admin</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Admin > <small>{{ 'Edit' if bagian else 'Tambah' }} Bagian</small></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form action="" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate
+                        class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama_bagian">Nama Bagian <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="nama_bagian" name="nama_bagian" required="required"
+                                    class="form-control col-md-7 col-xs-12"
+                                    value="{{ bagian.nama_bagian if bagian else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                for="username_admin_bagian">Username Admin Bagian <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="username_admin_bagian" name="username_admin_bagian"
+                                    required="required" maxlength="50" class="form-control col-md-7 col-xs-12"
+                                    value="{{ bagian.username_admin_bagian if bagian else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password_bagian">Password
+                                Bagian <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="password" id="password_bagian" name="password_bagian" maxlength="50"
+                                    class="form-control col-md-7 col-xs-12" {{ 'required' if not bagian else '' }}>
+                                {% if bagian %}
+                                <small class="text-muted">Kosongkan jika tidak ingin mengubah password.</small>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama_lengkap">Nama Lengkap
+                                <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="nama_lengkap" name="nama_lengkap" required="required"
+                                    maxlength="70" class="form-control col-md-7 col-xs-12"
+                                    value="{{ bagian.nama_lengkap if bagian else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tanggal_lahir_bagian">Tanggal
+                                Lahir <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <fieldset>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control has-feedback-left" id="single_cal3"
+                                                name="tanggal_lahir_bagian" required="required"
+                                                value="{{ bagian.tanggal_lahir_bagian if bagian else '' }}">
+                                            <span class="fa fa-calendar-o form-control-feedback left"
+                                                aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alamat">Alamat <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <textarea id="alamat" name="alamat" required="required" class="form-control"
+                                    rows="3">{{ bagian.alamat if bagian else '' }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="no_hp_bagian">No HP <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="no_hp_bagian" name="no_hp_bagian" required="required"
+                                    maxlength="12" class="form-control col-md-7 col-xs-12"
+                                    value="{{ bagian.no_hp_bagian if bagian else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Foto <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input name="gambar" accept="image/png,image/jpeg,image/jpg" type="file" id="gambar"
+                                    class="form-control" /> *max 2mb
+                                {% if bagian and bagian.gambar %}
+                                <br>
+                                <img src="{{ url_for('static', filename='bagian/images/' + bagian.gambar) }}"
+                                    class="img-circle" height="80" width="80" style="border: 2px solid #666666;" />
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <a href="{{ url_for('admin_bagian') }}" class="btn btn-success"><span
+                                        class="glyphicon glyphicon-arrow-left"></span> Batal</a>
+                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i>
+                                    Simpan</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='assets/vendors/moment/min/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+
+<script>
+    $('#single_cal3').daterangepicker({
+        singleDatePicker: true,
+        calender_style: "picker_3",
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    });
+</script>
+{% endblock %}

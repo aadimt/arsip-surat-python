@@ -1,0 +1,9 @@
+Flask==3.0.0
+mysql-connector-python==8.0.33
+python-dotenv==1.0.0
+Werkzeug
+Jinja2
+openpyxl==3.0.1
+tensorflow==2.15.0
+numpy==1.26.4
+scikit-learn==1.4.0

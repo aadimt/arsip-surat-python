@@ -1,0 +1,282 @@
+{% extends "admin/base.html" %}
+
+{% block extra_css %}
+<!-- Select2 -->
+<link href="{{ url_for('static', filename='assets/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="{{ url_for('static', filename='assets/vendors/bootstrap-daterangepicker/daterangepicker.css') }}"
+    rel="stylesheet">
+<!-- bootstrap-datetimepicker -->
+<link
+    href="{{ url_for('static', filename='assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}"
+    rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Surat Masuk</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Surat Masuk > <small>{{ 'Edit' if surat else 'Tambah' }} Surat Masuk</small></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form action="" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate
+                        class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                for="tanggalmasuk_suratmasuk">Tanggal Masuk <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class='input-group date' id='myDatepicker4'>
+                                    <input type='text' id="tanggalmasuk_suratmasuk" name="tanggalmasuk_suratmasuk"
+                                        required="required" class="form-control" readonly="readonly"
+                                        value="{{ surat.tanggalmasuk_suratmasuk if surat else '' }}" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kode_suratmasuk">Kategori
+                                Surat <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select id="kode_suratmasuk" name="kode_suratmasuk" required="required"
+                                    class="form-control col-md-7 col-xs-12">
+                                    <option value="">-- Pilih Kategori Surat --</option>
+                                    <option value="SE" {{ 'selected' if surat and surat.kode_suratmasuk=='SE' else ''
+                                        }}>[1] Surat Edaran</option>
+                                    <option value="SK" {{ 'selected' if surat and surat.kode_suratmasuk=='SK' else ''
+                                        }}>[2] Surat Keputusan</option>
+                                    <option value="SP" {{ 'selected' if surat and surat.kode_suratmasuk=='SP' else ''
+                                        }}>[3] Surat Permohonan</option>
+                                    <option value="ST" {{ 'selected' if surat and surat.kode_suratmasuk=='ST' else ''
+                                        }}>[4] Surat Tugas</option>
+                                    <option value="SU" {{ 'selected' if surat and surat.kode_suratmasuk=='SU' else ''
+                                        }}>[5] Surat Undangan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nomorurut_suratmasuk">Nomor
+                                Urut <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="nomorurut_suratmasuk" name="nomorurut_suratmasuk"
+                                    required="required" maxlength="4" class="form-control col-md-7 col-xs-12"
+                                    value="{{ surat.nomorurut_suratmasuk if surat else nomor_baru }}">
+                                <br>Nomor Urut harus 4 Digit (Pastikan Lihat Nomor Sebelumnya)</br>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nomor_suratmasuk">Nomor Surat
+                                <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="nomor_suratmasuk" name="nomor_suratmasuk" required="required"
+                                    maxlength="35" class="form-control col-md-7 col-xs-12"
+                                    value="{{ surat.nomor_suratmasuk if surat else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                for="tanggalsurat_suratmasuk">Tanggal Surat <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <fieldset>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control has-feedback-left" id="single_cal3"
+                                                name="tanggalsurat_suratmasuk" required="required" readonly="readonly"
+                                                value="{{ surat.tanggalsurat_suratmasuk if surat else '' }}">
+                                            <span class="fa fa-calendar-o form-control-feedback left"
+                                                aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pengirim">Pengirim <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="pengirim" name="pengirim" required="required"
+                                    class="form-control col-md-7 col-xs-12"
+                                    value="{{ surat.pengirim if surat else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kepada_suratmasuk">Kepada
+                                <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="kepada_suratmasuk" name="kepada_suratmasuk" required="required"
+                                    class="form-control col-md-7 col-xs-12"
+                                    value="{{ surat.kepada_suratmasuk if surat else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="perihal_suratmasuk">Perihal
+                                <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <textarea id="perihal_suratmasuk" name="perihal_suratmasuk" required="required"
+                                    class="form-control"
+                                    rows="3">{{ surat.perihal_suratmasuk if surat else '' }}</textarea>
+                                <button type="button" id="btn-classify" class="btn btn-info btn-xs"
+                                    style="margin-top: 5px;">
+                                    <i class="fa fa-magic"></i> Klasifikasi Otomatis (CNN AI)
+                                </button>
+                                <span id="classify-status" style="margin-left: 10px; font-weight: bold;"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="file_suratmasuk">File <span
+                                    class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input name="file_suratmasuk" accept="application/pdf" type="file" id="file_suratmasuk"
+                                    class="form-control" /> *max 10mb
+                                {% if surat and surat.file_suratmasuk %}
+                                <br><a href="{{ url_for('static', filename='uploads/' + surat.file_suratmasuk) }}"
+                                    target="_blank">Lihat File Sebelumnya</a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Operator (Readonly) -->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Operator </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input value="{{ session.get('username') }}" type="text" readonly="readonly"
+                                    class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <!-- Disposisi 1 -->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Disposisi 1 </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select name="disposisi1" class="select2_single form-control" tabindex="-1">
+                                    <option></option>
+                                    {% for bagian in bagian_list %}
+                                    <option value="{{ bagian.nama_bagian }}" {{ 'selected' if surat and
+                                        surat.disposisi1==bagian.nama_bagian else '' }}>{{ bagian.nama_bagian }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Date Disposisi 1 -->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Disposisi 1</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class='input-group date' id='myDatepicker'>
+                                    <input type='text' name="tanggal_disposisi1" class="form-control"
+                                        value="{{ surat.tanggal_disposisi1 if surat else '' }}" />
+                                    <span class="input-group-addon"><span
+                                            class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <a href="{{ url_for('admin_surat_masuk') }}" class="btn btn-success"><span
+                                        class="glyphicon glyphicon-arrow-left"></span> Batal</a>
+                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i>
+                                    Simpan</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='assets/vendors/moment/min/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/vendors/select2/dist/js/select2.full.min.js') }}"></script>
+
+<script>
+    $('#myDatepicker4').datetimepicker({
+        ignoreReadonly: true,
+        allowInputToggle: true,
+        format: 'YYYY-MM-DD HH:mm:ss'
+    });
+
+    $('#single_cal3').daterangepicker({
+        singleDatePicker: true,
+        calender_style: "picker_3",
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    }, function (start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+    });
+
+    $('#myDatepicker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss'
+    });
+
+    $(".select2_single").select2({
+        placeholder: "Pilih Bagian",
+        allowClear: true
+    });
+
+    // logic untuk Klasifikasi Otomatis (CNN AI)
+    $('#btn-classify').click(function () {
+        var perihal = $('#perihal_suratmasuk').val();
+        if (!perihal) {
+            alert("Silahkan isi Perihal Surat terlebih dahulu.");
+            return;
+        }
+
+        $('#classify-status').text("Sedang memproses...").css("color", "blue");
+        $(this).attr("disabled", true);
+
+        fetch('/admin/surat_masuk/classify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ perihal: perihal }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                $(this).attr("disabled", false);
+                if (data.prediction) {
+                    // Set value di Select2 (Disposisi 1)
+                    $('[name="disposisi1"]').val(data.prediction).trigger('change');
+                    $('#classify-status').text("Berhasil! (Akurasi: " + data.confidence + ")").css("color", "green");
+                } else {
+                    $('#classify-status').text("Gagal: " + (data.error || "Unknown Error")).css("color", "red");
+                }
+            })
+            .catch((error) => {
+                $(this).attr("disabled", false);
+                $('#classify-status').text("Terjadi kesalahan sistem.").css("color", "red");
+                console.error('Error:', error);
+            });
+    });
+</script>
+{% endblock %}

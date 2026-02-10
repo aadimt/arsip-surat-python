@@ -1,0 +1,69 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Profil Admin</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Edit Profil</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Foto Profil</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {% if admin.gambar %}
+                                <img src="{{ url_for('static', filename='assets/images/' + admin.gambar) }}"
+                                    alt="Current Profile" style="width: 100px; margin-bottom: 10px;"
+                                    class="img-thumbnail">
+                                {% else %}
+                                <img src="{{ url_for('static', filename='assets/images/img.jpg') }}"
+                                    alt="Default Profile" style="width: 100px; margin-bottom: 10px;"
+                                    class="img-thumbnail">
+                                {% endif %}
+                                <input type="file" name="gambar" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="nama_admin" value="{{ admin.nama_admin }}" required
+                                    class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="username_admin" value="{{ admin.username_admin }}" required
+                                    class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Password Baru <small>(kosongkan
+                                    jika tidak ubah)</small></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="password" name="password" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Update Profil</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

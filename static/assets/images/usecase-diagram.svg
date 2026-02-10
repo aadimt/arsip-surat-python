@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <defs>
+    <style>
+      .bg { fill: #f5f8ff }
+      .actor { fill: none; stroke: #0d47a1; stroke-width:3 }
+      .actor-fill { fill: #0d47a1 }
+      .uc { fill: #e3f2fd; stroke: #1e88e5; stroke-width:2 }
+      .uc-text { fill: #0d47a1; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:16px }
+      .title { fill:#0d47a1; font-weight:700; font-size:22px; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif }
+      .line { stroke:#1e88e5; stroke-width:2 }
+      .small { font-size:13px; fill:#0d47a1 }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+  <text x="50%" y="48" text-anchor="middle" class="title">Use Case Diagram — Sistem Arsip Surat</text>
+
+  <!-- Actors left -->
+  <g id="actor-admin" transform="translate(80,140)">
+    <circle cx="0" cy="0" r="28" class="actor-fill" />
+    <g transform="translate(-8,36)">
+      <rect x="0" y="0" width="16" height="34" rx="8" fill="#0d47a1" />
+    </g>
+    <text x="0" y="90" text-anchor="middle" class="small">Admin</text>
+  </g>
+
+  <g id="actor-bagian" transform="translate(80,420)">
+    <circle cx="0" cy="0" r="28" class="actor-fill" />
+    <g transform="translate(-8,36)">
+      <rect x="0" y="0" width="16" height="34" rx="8" fill="#0d47a1" />
+    </g>
+    <text x="0" y="90" text-anchor="middle" class="small">Bagian</text>
+  </g>
+
+  <g id="actor-guest" transform="translate(1320,280)">
+    <circle cx="0" cy="0" r="28" class="actor-fill" />
+    <g transform="translate(-8,36)">
+      <rect x="0" y="0" width="16" height="34" rx="8" fill="#0d47a1" />
+    </g>
+    <text x="0" y="90" text-anchor="middle" class="small">Pengguna</text>
+  </g>
+
+  <!-- Use cases center -->
+  <g id="usecases" transform="translate(360,120)">
+    <!-- Login -->
+    <ellipse cx="270" cy="30" rx="160" ry="30" class="uc" />
+    <text x="270" y="36" text-anchor="middle" class="uc-text">Login / Otentikasi</text>
+
+    <!-- Manage Sections -->
+    <ellipse cx="270" cy="110" rx="170" ry="28" class="uc" />
+    <text x="270" y="116" text-anchor="middle" class="uc-text">Kelola Bagian (input, edit, hapus)</text>
+
+    <!-- Manage Incoming -->
+    <ellipse cx="270" cy="190" rx="190" ry="28" class="uc" />
+    <text x="270" y="196" text-anchor="middle" class="uc-text">Kelola Surat Masuk (input, edit, detail, download)</text>
+
+    <!-- Manage Outgoing -->
+    <ellipse cx="270" cy="270" rx="190" ry="28" class="uc" />
+    <text x="270" y="276" text-anchor="middle" class="uc-text">Kelola Surat Keluar (input, edit, detail, download)</text>
+
+    <!-- Reports -->
+    <ellipse cx="270" cy="350" rx="160" ry="28" class="uc" />
+    <text x="270" y="356" text-anchor="middle" class="uc-text">Lihat & Unduh Laporan</text>
+
+    <!-- Predict category API -->
+    <ellipse cx="270" cy="430" rx="150" ry="26" class="uc" />
+    <text x="270" y="436" text-anchor="middle" class="uc-text">Prediksi Kategori (API)</text>
+
+    <!-- Profile -->
+    <ellipse cx="270" cy="510" rx="140" ry="26" class="uc" />
+    <text x="270" y="516" text-anchor="middle" class="uc-text">Kelola Profil</text>
+  </g>
+
+  <!-- Connections Admin -->
+  <line x1="120" y1="140" x2="200" y2="135" class="line" />
+  <line x1="200" y1="135" x2="370" y2="120" class="line" />
+
+  <line x1="120" y1="140" x2="200" y2="170" class="line" />
+  <line x1="200" y1="170" x2="370" y2="200" class="line" />
+
+  <!-- Connections Bagian -->
+  <line x1="120" y1="420" x2="200" y2="320" class="line" />
+  <line x1="200" y1="320" x2="370" y2="300" class="line" />
+
+  <line x1="120" y1="420" x2="200" y2="370" class="line" />
+  <line x1="200" y1="370" x2="370" y2="260" class="line" />
+
+  <!-- Connections Pengguna -->
+  <line x1="1080" y1="280" x2="760" y2="320" class="line" />
+  <line x1="760" y1="320" x2="470" y2="350" class="line" />
+
+  <!-- Additional lines to specific use cases (visual anchors) -->
+  <line x1="450" y1="120" x2="110" y2="68" stroke="#1e88e5" stroke-width="0" />
+
+  <!-- Legend small -->
+  <rect x="1040" y="540" width="330" height="140" rx="12" fill="#eaf3ff" stroke="#cfe6ff"/>
+  <text x="1160" y="570" text-anchor="middle" class="small" style="font-weight:700;">Keterangan</text>
+  <text x="1120" y="600" class="small">- Actor: Admin, Bagian, Pengguna</text>
+  <text x="1120" y="622" class="small">- Use case sesuai file dan folder di proyek</text>
+  <text x="1120" y="644" class="small">- Warna: biru modern, ikon sederhana</text>
+
+  <!-- Footer small note -->
+  <text x="20" y="800" class="small">Diagram dibuat berdasarkan alur pada struktur proyek (folder `admin`, `bagian`, `api`, `proses`).</text>
+</svg>

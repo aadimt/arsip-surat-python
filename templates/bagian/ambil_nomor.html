@@ -1,0 +1,58 @@
+{% extends "bagian/base.html" %}
+
+{% block content %}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Cek Nomor</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <br><br>
+                    <center>
+                        <h1><b>Hi, {{ session.get('nama_bagian') }}</b></h1>
+                    </center>
+                    <br><br>
+
+                    <form action="" method="post" id="demo-form2" data-parsley-validate
+                        class="form-horizontal form-label-left">
+                        <input type="hidden" name="nomorbaru" value="{{ nomor_baru }}">
+                        <div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon"><i class="fa fa-sort-numeric-asc"></i></div>
+                                <div class="count">
+                                    <center>Nomor Surat Keluar Berikutnya :</center>
+                                </div>
+                                <div class="count">
+                                    <center>{{ nomor_baru }}</center>
+                                </div>
+                                <center>
+                                    <h3>Terakhir Diperbarui Pada : {{ last_update }}</h3>
+                                </center>
+                                <div class="count">
+                                    <a
+                                        href="{{ url_for('static', filename='admin/file/kode_klasifikasi_surat.xlsx') }}">
+                                        <center>Lihat Kode Klasifikasi Surat</center>
+                                    </a>
+                                </div>
+                                <br>
+                                <center>
+                                    <button type="submit" title="Ambil Nomor" class="btn btn-info btn-lg"
+                                        onclick="return confirm('Apakah anda yakin akan mengambil nomor ini?')">
+                                        <i class="fa fa-thumb-tack"> AMBIL NOMOR</i>
+                                    </button>
+                                </center>
+                                <br>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
